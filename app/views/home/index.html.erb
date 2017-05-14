@@ -1,0 +1,123 @@
+<div class="media well">
+	<%= form_tag("/posts/create", method: "post", id: "posts_create_form") do %>
+		<div class="panel-heading panel-heading-gray title" style="background: #26a69a; padding: 10px; color: #fff">
+	      What´s new
+	    </div>
+		<div class="panel-body">
+			<textarea name="status" class="form-control share-text" id="posts_status" rows="3" placeholder="Share your status..."></textarea>
+		</div>
+		<div class="panel-footer share-buttons">
+			<a href="#"><i class="fa fa-map-marker"></i></a>
+	      <a href="#"><i class="fa fa-photo"></i></a>
+	      <a href="#"><i class="fa fa-video-camera"></i></a>
+	      	<button type="submit" class="btn btn-primary btn-sm pull-right display-none" id="posts_create_button" href="#">Post</button>
+	    </div>
+    <%end%>
+</div>
+
+<div class="panel-heading panel-heading-gray title" style="background: #26a69a; padding: 10px; color: #fff">Feeds...
+</div>
+
+<% @posts.each do |post| %>
+	<div class="media well posts_list">
+		<a href="#" class="pull-left"><img alt="Bootstrap Media Preview" src="http://lorempixel.com/64/64/" class="media-object"></a>
+		<div class="media-body">
+			<h4 class="media-heading"><%= post.title %></h4><%= post.content %>
+		</div>
+		<button class="btn btn-sm btn-primary post_like_button" data-post="<%= post.id%>" data-count="">Like (<%= post.likes_count %>) </button>
+
+    <a href='/posts/post_comments?id=<%= post.id %>' class='btn btn-primary btn-sm ls-modal'>comment</a>
+
+	</div>
+<%end%>
+
+
+	<div class="panel panel-body">
+		<a href="#" class="btn btn-primary btn-sm btn-block" role="button"><span class="glyphicon glyphicon-refresh"></span> More</a>
+	</div>
+
+<div class="modal fade" id="myModal" tabindex="-3" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        <p>Loading...</p>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script type="text/javascript" src="/assets/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="/assets/bootstrap.js"></script>
+
+<script type="text/javascript">
+  $('.ls-modal').on('click', function(e){
+    e.preventDefault();
+    $('#myModal').modal('show').find('.modal-body').load($(this).attr('href'));
+  });
+</script>
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+
+  	$('.post_like_button').click(function() {
+  		console.log($(this).html());
+  		var th = $(this)
+  		var likes_count = parseInt($(this).html())
+  		event.preventDefault();
+  		var post_id = +$(this).attr("data-post");
+  		var params = {post_id: post_id, user_id: 1}
+  		
+  		$.ajax({
+  			url: '/posts/likes',
+  			type: 'POST',
+  			data: params,
+  			dataType: 'json',
+  			error: function() {
+  				console.log("error");
+  			},
+  			beforeSend: function(xhr) {
+  				xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+  			},
+  			success: function(datas) {
+  				console.log("success");
+
+  				if (datas.status == "add") { $(th).html("Like ("+parseInt(likes_count+1) +")" ) }
+  				else{ $(th).html("Like ("+ parseInt(likes_count-1) +")" )  }
+  			}
+  		});
+  	});
+
+  	$('#posts_create_button').click(function() {
+  		event.preventDefault();
+  		var value = $("#posts_status").val();
+  		var params = {post: {content: value, user_id: 1}}
+  		$.ajax({
+  			url: '/posts/create',
+  			type: 'POST',
+  			data: params,
+  			dataType: 'html',
+  			error: function() {
+  				console.log("error");
+  			},
+  			beforeSend: function(xhr) {
+  				xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+  			},
+  			success: function(datas) {
+  				console.log("success");
+          var first = $(".posts_list")[0]
+          $(first).before($(datas))
+  			}
+  		});
+  	});
+
+});
+
+</script>

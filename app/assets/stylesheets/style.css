@@ -1,0 +1,97 @@
+/* Global Style */
+
+body {font-family: "Poppins", sans-serif;background: #fafafa !important;}
+html {position: relative;min-height: 100%;}
+::selection {background-color: #1abc9c; color: #ffffff; }
+::-moz-selection { background-color: #1abc9c; color: #ffffff; }
+a { text-decoration: none !important; color: #1abc9c; }
+a:hover, a:focus, a:active {text-decoration: none; outline: none; color: #333333; }
+b { font-weight: 600; color: #333333; }
+p { font-size: 14px; font-family: "Poppins", sans-serif; }
+button { background-color: transparent; }
+*:focus { outline: 0; }
+#main { margin: 50px 0; }
+.main-color { color: #1abc9c; }
+.page-body { background: #ffffff; box-shadow: -2px -1px 88px 0px rgba(0,0,0,0.17);}
+.sub-title { padding: 30px; }
+.sub-title h2 { display: inline-block; font-size: 25px; letter-spacing: 0.5px; font-weight: 600; }
+.sub-title i { float: right; font-size: 35px; margin-top: 15px; }
+.content-page { padding-top: 30px; padding-bottom: 60px; border-top: 1px dashed #dedede; border-bottom: 1px dashed #dedede;
+}
+.grabbing { cursor: url(grabbing.png) 8 8, move; }
+
+.button { border: none; font-family: inherit;font-size: 16px;
+    color: inherit; background: none; cursor: pointer; padding: 10px 60px;
+    padding-left: 0px; display: inline-block; margin: 8px 30px; margin-left: 5px; letter-spacing: 1px; 
+    font-weight: 600; outline: none;
+    position: relative; -webkit-transition: all 0.3s; -moz-transition: all 0.3s; transition: all 0.3s;
+}
+
+.button:after {content: ''; position: absolute; z-index: -1;
+ -webkit-transition: all 0.3s; -moz-transition: all 0.3s; transition: all 0.3s;}
+
+.button:before {font-family: 'FontAwesome';speak: none;font-style: normal;font-weight: normal;
+font-variant: normal;text-transform: none;line-height: 1;position: relative;
+-webkit-font-smoothing: antialiased;}
+
+.button-style {color: #1abc9c;overflow: hidden;}
+
+.button-style:before { position: absolute;font-size: 27px;line-height: 38px;color: #1abc9c;
+-webkit-transition: all 0.3s;-moz-transition: all 0.3s;transition: all 0.3s;
+}
+
+.button-style:active:before {color: #1abc9c; }
+
+.button-anim:before { left: 60%; opacity: 0; top: 0;}
+
+.button-anim:hover:before { left: 75%; opacity: 1; }
+
+
+
+/* Profile */	
+
+/*.about-fixed { position: fixed; width: 20.8%; }*/
+
+.my-pic { width: 100%; box-shadow: -2px -1px 88px 0px rgba(0,0,0,0.17); }
+
+.my-pic img { width: 100%; }
+
+.my-detail { text-align: center; margin-bottom: 30px; background: #ffffff; 
+    box-shadow: -2px -1px 88px 0px rgba(0,0,0,0.17);}
+
+.my-detail .white-spacing {padding: 23px 0;border-bottom: 1px dashed #cccccc;}
+
+.my-detail h1 {font-size: 20px; font-weight: 700; }
+
+.my-detail span { color: #c1c1c1; font-weight: 400; line-height: 30px; font-size: 16px; }
+
+
+/* Social Icons */
+
+.social-icon { list-style: none; padding: 20px; margin: 0; text-align: center; }
+
+.social-icon:before,
+.social-icon:after { content: " "; display: table; }
+
+.social-icon:after { clear: both; }
+
+.social-icon li { display: inline-block; margin: 2px 4px; }
+
+.social-icon li a {
+  display: block; width: 40px; height: 40px;
+  line-height: 42px; color: #fff;
+  text-align: center; border: 0 none;
+  border-radius: 50%; font-size: 17px;
+  box-shadow: 0px 1px 2px 0px rgba(90, 91, 95, 0.15); transition: all 0.3s ease-in-out;
+}
+
+.social-icon li a:hover { box-shadow: 0px 8px 15px 0px rgba(90, 91, 95, 0.33); }
+
+.facebook { background-color: #3b5998; }
+
+.twitter { background-color: #1da1f2; }
+
+.linkedin { background-color: #0077b5; }
+
+.github { background-color: #333333; }
+
